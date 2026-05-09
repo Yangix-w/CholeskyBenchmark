@@ -30,6 +30,16 @@ Le matrici utilizzate per i test derivano da problemi reali (ingegneria, fluidod
 
 Le matrici sono scaricabili attraverso i script all'interno delle cartelle `matlab` e `python`.
 
+Installazione Windows:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\script.ps1
+
+.\script.ps1
+```
+Installazione Linux: 
+```bash
+bash script.sh
+```
 ## Concetti chiavi
 - **Fill-in**: L'implementazione deve prevedere una permutazione preliminare di righe e colonne per minimizzare la generazione di nuovi elementi non nulli durante la fattorizzazione.
 - **Algoritmi Specifici**: A differenza di MATLAB, le librerie open source richiedono spesso l'esplicita selezione di algoritmi per matrici simmetriche e definite positive per evitare prestazioni degradate. 
