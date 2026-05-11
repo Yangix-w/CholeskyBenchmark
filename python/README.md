@@ -72,11 +72,11 @@ python choleski.py
 - **Uso nel progetto**: Vettori densi, calcolo norme, operazioni algebriche
 - **Manutenzione**: Progetto fondamentale dell'ecosistema Python, rilasci frequenti
 
-### 4. **psutil**
-- **Documentazione**: https://psutil.readthedocs.io/
-- **Uso**: Monitoraggio memoria processo (RSS - Resident Set Size)
-- **Caratteristiche**: Cross-platform, misura memoria fisica effettiva
-- **Manutenzione**: Libreria matura e ben mantenuta
+### 4. **memory_profiler**
+- **Documentazione**: https://pypi.org/project/memory-profiler/
+- **Uso**: Profilazione e monitoraggio dell'uso di memoria tramite la funzione `memory_usage` di memory_profiler
+- **Caratteristiche**: Semplice da usare, fornisce grafici e report dettagliati sull'uso della memoria
+- **Manutenzione**: Progetto attivamente mantenuto, ampiamente usato nella comunità scientifica
 
 ## Formati di memorizzazione matrici sparse
 Le matrici sparse vengono memorizzate solo con gli elementi **non-zero**, riducendo drasticamente l'occupazione di memoria.
@@ -114,4 +114,3 @@ Durante la fattorizzazione A = L·L^T, il fattore L può avere **più elementi n
 - **Fill-in**: Nuovi elementi non-zero creati durante la decomposizione
 - CHOLMOD usa **riordinamento** (AMD/COLAMD) per minimizzare fill-in
 - La memoria aumenta proporzionalmente al fill-in del fattore L
-
