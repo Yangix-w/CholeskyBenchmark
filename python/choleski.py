@@ -66,14 +66,14 @@ def solve_and_measure(mtx_file):
         print(" Errore: matrice NON simmetrica")
         results['error'] = 'non simmetrica'
         return results
-
+    
     # STEP 3: Decomposizione di Choleski + risoluzione sistema A*x = b
     try:
         t0 = time.perf_counter()
         x, relative_error = solve_matrix(A, b, xe)
         time_ms = time.perf_counter() - t0
         
-        mem_history = memory_usage((solve_matrix, (A, b)), interval=0.1, timeout=None, include_children=True )
+        mem_history = memory_usage((solve_matrix, (A, b, xe)), interval=0.1, timeout=None, include_children=True )
 
         if mem_history:
             peak_memory = max(mem_history)
@@ -95,8 +95,8 @@ if __name__ == '__main__':
         "./matrices/shallow_water1.mtx",
         "./matrices/cfd2.mtx",
         "./matrices/parabolic_fem.mtx",
-        #"./matrices/apache2.mtx",
-        #"./matrices/G3_circuit.mtx",
+        "./matrices/apache2.mtx",
+        "./matrices/G3_circuit.mtx",
         #"./matrices/StocF-1465.mtx",
         #"./matrices/Flan_1565.mtx"
     ]
@@ -117,11 +117,16 @@ if __name__ == '__main__':
 
     matrix_ordered = sorted(matrix_files, key=lambda x: shapes[x][0])
 
+    ROOT_DIR = os.path.dirname(BASE_DIR)
+    RESULTS_DIR = os.path.join(ROOT_DIR, 'results')
+    if not os.path.exists(RESULTS_DIR):
+        os.makedirs(RESULTS_DIR)
+
     os_name = platform.system()
     if os_name == 'Windows':
-        csv_file = os.path.join(BASE_DIR, 'results_python_windows.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_windows.csv')
     else:
-        csv_file = os.path.join(BASE_DIR, 'results_python_linux.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_linux.csv')
 
     with open(csv_file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
