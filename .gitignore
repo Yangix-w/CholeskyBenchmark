@@ -29,12 +29,6 @@ venv/
 *.json
 .vscode/
 
-#risultati temporanei
-risultati_matlab_windows.csv
-risultati_matlab_linux.csv
-risultati_python_windows.csv
-risultati_python_linux.csv
-
 
 #MATLab
 Cholesky.asv
