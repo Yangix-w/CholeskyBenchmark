@@ -57,8 +57,6 @@ for i = 1:num_matrici
         mem_iniziale = str2double(strtrim(mem_str)) / 1024;
     end
 
-    fprintf('Memoria iniziale: %.2f MB\n\n', mem_iniziale);
-
     N = size(A, 1);
     
     % --- SETUP MONITORAGGIO MEMORIA ---
@@ -125,12 +123,9 @@ for i = 1:num_matrici
     if isfile(log_file)
         mem_data = readmatrix(log_file); % Legge l'array dei campionamenti in KB
         if ~isempty(mem_data)
-            %mem_start = mem_data(1);      % Memoria all'istante iniziale
-            mem_peak = max(mem_data) / 1024;     % Picco di memoria raggiunto
-            fprintf('Memoria nel picco: %.2f MB\n\n', mem_peak);
+            mem_peak = max(mem_data) / 1024; % Picco di memoria raggiunto
             % Incremento in Megabyte (MB)
             memorie(i) = mem_peak - mem_iniziale; 
-            %memorie(i) = mem_peak / 1024;
         else
             memorie(i) = 0;
             warning('Il file di log della memoria è vuoto per %s.', matrici_names{i});
