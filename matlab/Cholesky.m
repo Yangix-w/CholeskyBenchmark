@@ -46,33 +46,108 @@ for i = 1:num_matrici
         A = data.(campi{1}); 
     end
 
-    profile clear % Pulizia eventuali dati precedenti
-    profile on -memory
+    matlab_pid = feature('getpid');
+    if ispc
+        cmd = sprintf('powershell -Command "(Get-Process -Id %d).WorkingSet64"', matlab_pid);
+        [~, mem_str] = system(cmd);
+        mem_iniziale = str2double(strtrim(mem_str)) / 1024^2;
+    else
+        cmd = sprintf('ps -p %d -o rss=', matlab_pid);
+        [~, mem_str] = system(cmd);
+        mem_iniziale = str2double(strtrim(mem_str)) / 1024;
+    end
 
     N = size(A, 1);
+    
+    % --- SETUP MONITORAGGIO MEMORIA ---
+    % Ottieni il Process ID (PID) di questa sessione di MATLAB
+    matlab_pid = feature('getpid');
+    
+    % Definisci i percorsi per i file di scambio
+    log_file = fullfile(pwd, 'mem_log.txt');
+    flag_file = fullfile(pwd, 'stop_monitor.txt');
+    
+    % Assicurati che i file della sessione precedente siano eliminati
+    if isfile(log_file), delete(log_file); end
+    if isfile(flag_file), delete(flag_file); end
 
+    % Lancia lo script in background in base al Sistema Operativo
+    if ispc
+        % Windows: Usa Start /B per lanciare PowerShell in background senza aprire nuove finestre
+        cmd = sprintf('start /B powershell -ExecutionPolicy Bypass -WindowStyle Hidden -File monitor_memory.ps1 -PIDToMonitor %d -LogFile "%s" -FlagFile "%s"', matlab_pid, log_file, flag_file);
+        system(cmd);
+    else
+        % Linux: Esegue lo script bash in background usando la e commerciale (&)
+        cmd = sprintf('./monitor_memory.sh %d "%s" "%s" &', matlab_pid, log_file, flag_file);
+        system(cmd);
+    end
+
+    % Breve pausa per assicurarsi che lo script in background sia partito
+    %pause(0.5);
+
+    % Aspetta che il file di log venga creato e che contenga dei dati (massimo 15 sec)
+    timeout = 15;
+    t_wait = tic;
+    log_pronto = false;
+    
+    while toc(t_wait) < timeout
+        if isfile(log_file)
+            % Se il file esiste, controlla che non sia vuoto (bytes > 0)
+            info_file = dir(log_file);
+            if info_file.bytes > 0
+                log_pronto = true;
+                break; % Usciamo dal ciclo: PowerShell ha iniziato a scrivere!
+            end
+        end
+        pause(0.1); % Controlla ogni decimo di secondo
+    end
+    
+    if ~log_pronto
+        warning('Timeout: lo script esterno è troppo lento o non si è avviato.');
+    end
+
+    % --- ESECUZIONE DELLA RISOLUZIONE E MISURAZIONE TEMPO ---
+    tic;
     errori(i) = solve(A, N);
+    tempi(i) = toc;
 
-    profile off
-    stats = profile('info'); % Estrazione di tutte le statistiche registrate
+    % --- FINE MONITORAGGIO MEMORIA ---
+    % Crea il file "flag" per dire allo script in background di fermarsi
+    fid = fopen(flag_file, 'w');
+    fclose(fid);
+    
+    % Breve pausa per dare tempo allo script di accorgersi del flag e chiudersi
+    pause(0.5);
+    
+    % --- CALCOLO INCREMENTO RAM ---
+    if isfile(log_file)
+        mem_data = readmatrix(log_file); % Legge l'array dei campionamenti in KB
+        if ~isempty(mem_data)
+            mem_peak = max(mem_data) / 1024; % Picco di memoria raggiunto
+            % Incremento in Megabyte (MB)
+            memorie(i) = mem_peak - mem_iniziale; 
+        else
+            memorie(i) = 0;
+            warning('Il file di log della memoria è vuoto per %s.', matrici_names{i});
+        end
+    else
+        memorie(i) = 0;
+        warning('Impossibile trovare il file di log della memoria per %s.', matrici_names{i});
+    end
 
-    s = whos;
-    workspace = sum([s.bytes])/1024^2;
-    
-    % Incremento di memoria
-    memorie(i) = stats.FunctionTable(2).TotalMemAllocated/1024^2 + workspace;
-    tempi(i) = stats.FunctionTable(2).TotalTime;
-    
     N_vals(i) = N; 
     fprintf("N: %-8d | ", N_vals(i));
     
-    
     % Stampa dei risultati intermedi
-    fprintf('Tempo: %8.4f s | Errore: %8.2e | Memoria: %8.4f MB\n', ...
+    fprintf('Tempo: %8.4f s | Errore: %8.2e | Incremento Memoria: %8.4f MB\n', ...
             tempi(i), errori(i), memorie(i));
             
     % Pulizia per liberare la RAM prima del ciclo successivo
-    clear A b x xe data;
+    clear A data;
+    
+    % Rimuove i file temporanei
+    if isfile(log_file), delete(log_file); end
+    if isfile(flag_file), delete(flag_file); end
 end
 
 fprintf('--------------------------------------------------\n');
