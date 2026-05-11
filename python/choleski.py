@@ -1,13 +1,11 @@
 import os
 import sys
-import gc
 
 from scipy.io import mmread
 from scipy.sparse import csc_matrix
 from sksparse.cholmod import cholesky
 import numpy as np
 import matplotlib.pyplot as plt
-import psutil
 import time
 import csv
 import platform
@@ -20,11 +18,6 @@ if sys.platform == 'win32' and 'conda' in sys.executable.lower():
     if os.path.exists(dll_dir):
         os.environ["PATH"] = dll_dir + os.pathsep + os.environ.get("PATH", "")
         os.add_dll_directory(dll_dir)
-
-def get_mem_mb():
-    """Memoria RSS del processo in MB, dopo aver liberato memoria inutilizzata."""
-    gc.collect()
-    return psutil.Process(os.getpid()).memory_info().rss / (1024**2)
 
 def check_symmetry_sparse(A, tol=1e-10):
     diff = A - A.T
@@ -44,10 +37,12 @@ def plot_results(results, metric, label, subplot_pos):
     plt.ticklabel_format(style='plain', axis='x')
     plt.xticks(rotation=45)
 
-def solve_matrix(A, b):
+def solve_matrix(A, b, xe):
     factor = cholesky(A)
     x = factor(b)
-    return x
+    relative_error = np.linalg.norm(x - xe) / np.linalg.norm(xe)
+
+    return x, relative_error
 
 def solve_and_measure(mtx_file):
     results = {'matrix': os.path.splitext(os.path.basename(mtx_file))[0]}
@@ -73,28 +68,25 @@ def solve_and_measure(mtx_file):
         return results
 
     # STEP 3: Decomposizione di Choleski + risoluzione sistema A*x = b
-    if __name__ == '__main__':
+    try:
+        t0 = time.perf_counter()
+        x, relative_error = solve_matrix(A, b, xe)
+        time_ms = time.perf_counter() - t0
+        
+        mem_history = memory_usage((solve_matrix, (A, b)), interval=0.1, timeout=None, include_children=True )
 
-        try:
-            t0 = time.perf_counter()
-            x = solve_matrix(A, b)
-            time_ms = time.perf_counter() - t0
+        if mem_history:
+            peak_memory = max(mem_history)
+
+            results['peak_memory'] = f"{peak_memory:.6f}"
+            results['time'] = f"{time_ms:.6f}"
+            results['relative_error'] = f"{relative_error:.2e}"
             
-            mem_history = memory_usage((solve_matrix, (A, b)), interval=0.1, timeout=None, include_children=True )
-
-            if mem_history:
-                peak_memory = max(mem_history)
-                relative_error = np.linalg.norm(x - xe) / np.linalg.norm(xe)
-
-                results['peak_memory'] = f"{peak_memory:.6f}"
-                results['time'] = f"{time_ms:.6f}"
-                results['relative_error'] = f"{relative_error:.2e}"
-                
-                return results
-            
-        except Exception as e:
-            print(f"    ERRORE: {e}")
-            results['error'] = str(e)
+            return results
+        
+    except Exception as e:
+        print(f"ERRORE: {e}")
+        results['error'] = str(e)
 
 if __name__ == '__main__':
     matrix_files = [
@@ -152,6 +144,6 @@ if __name__ == '__main__':
         plot_results(toPlot, 'time', 'Tempo (s)', 1)
         plot_results(toPlot, 're', 'Errore Relativo', 2)
         plot_results(toPlot, 'peak_mem', 'Memoria (MB)', 3)
-        plt.suptitle('Decomposizione di Choleski - Risultati', fontsize=14)
+        plt.suptitle('Decomposizione di Cholesky - Risultati', fontsize=14)
         plt.tight_layout()
         plt.show()

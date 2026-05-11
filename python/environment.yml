@@ -12,6 +12,6 @@ dependencies:
   - scipy>=1.11
   - scikit-sparse>=0.4.9  # CHOLMOD precompilato per Windows e Linux
   - psutil>=5.9
+  - matplotlib
+  - memory_profiler
   - pip
-  - pip:
-    - matplotlib  # se serve per plot
