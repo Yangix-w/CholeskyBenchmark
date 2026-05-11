@@ -72,7 +72,18 @@ for i = 1:num_matrici
     end
 
     % Breve pausa per assicurarsi che lo script in background sia partito
-    pause(0.5); 
+    %pause(0.5);
+
+    % Aspetta che il file di log venga creato (massimo 5 secondi di timeout)
+    timeout = 5;
+    t_wait = tic;
+    while ~isfile(log_file) && toc(t_wait) < timeout
+        pause(0.1); % Controlla ogni decimo di secondo
+    end
+    
+    if ~isfile(log_file)
+        warning('Timeout: lo script esterno non ha creato il log in tempo.');
+    end
 
     % --- ESECUZIONE DELLA RISOLUZIONE E MISURAZIONE TEMPO ---
     tic;
