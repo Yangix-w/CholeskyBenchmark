@@ -50,12 +50,14 @@ for i = 1:num_matrici
     if ispc
         % Su Windows la funzione nativa 'memory' è disponibile
         mem_info = memory;
-        mem_iniziale = mem_info.MemUsedMATLAB / 1024; % Convertito in KB
+        mem_iniziale = mem_info.MemUsedMATLAB / 1024^2; % Convertito in MB
     else
         % Su Linux chiediamo al sistema operativo la Resident Set Size (RSS)
         [~, mem_str] = system(sprintf('ps -p %d -o rss=', matlab_pid));
-        mem_iniziale = str2double(mem_str);
+        mem_iniziale = str2double(mem_str) / 1024; % Convertito da KB a MB
     end
+
+    fprintf('Memoria iniziale: %.2f MB\n\n', mem_iniziale);
 
     N = size(A, 1);
     
@@ -125,6 +127,7 @@ for i = 1:num_matrici
         if ~isempty(mem_data)
             %mem_start = mem_data(1);      % Memoria all'istante iniziale
             mem_peak = max(mem_data);     % Picco di memoria raggiunto
+            fprintf('Memoria nel picco: %.2f KB\n\n', mem_peak);
             % Incremento in Megabyte (MB)
             memorie(i) = (mem_peak - mem_iniziale) / 1024; 
             %memorie(i) = mem_peak / 1024;
