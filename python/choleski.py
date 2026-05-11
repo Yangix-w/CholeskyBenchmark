@@ -95,8 +95,8 @@ if __name__ == '__main__':
         "./matrices/shallow_water1.mtx",
         "./matrices/cfd2.mtx",
         "./matrices/parabolic_fem.mtx",
-        #"./matrices/apache2.mtx",
-        #"./matrices/G3_circuit.mtx",
+        "./matrices/apache2.mtx",
+        "./matrices/G3_circuit.mtx",
         #"./matrices/StocF-1465.mtx",
         #"./matrices/Flan_1565.mtx"
     ]
@@ -124,9 +124,9 @@ if __name__ == '__main__':
 
     os_name = platform.system()
     if os_name == 'Windows':
-        csv_file = os.path.join(RESULTS_DIR, 'results_python_windows.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_windows.csv')
     else:
-        csv_file = os.path.join(RESULTS_DIR, 'results_python_linux.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_linux.csv')
 
     with open(csv_file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
