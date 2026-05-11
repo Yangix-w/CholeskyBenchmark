@@ -1,10 +1,10 @@
-# Analisi Comparativa del Metodo di Choleski per Matrici Sparse
+# Analisi Comparativa del Metodo di Cholesky per Matrici Sparse
 ### Membri: Hicham Benbouzid, Le Yang Shi, Elena Zen
 
 Questo progetto nasce dall'esigenza aziendale di valutare l'efficienza di diverse soluzioni software per la risoluzione di sistemi lineari di grandi dimensioni, caratterizzati da matrici sparse, simmetriche e definite positive. L'obiettivo principale è confrontare le prestazioni di **MATLAB** con una **libreria open source** a scelta su due diversi sistemi operativi: **Windows** e **Linux**.
 
 # Obiettivi del Progetto
-Il lavoro si focalizza sullo studio del metodo di **Choleski** applicato a matrici sparse provenienti dalla *SuiteSparse Matrix Collection*. Il confronto deve evidenziare:
+Il lavoro si focalizza sullo studio del metodo di **Cholesky** applicato a matrici sparse provenienti dalla *SuiteSparse Matrix Collection*. Il confronto deve evidenziare:
 
 - **Tempo di calcolo**: Velocità nella risoluzione del sistema $Ax=b$.
 - **Accuratezza**: Calcolo dell'errore relativo rispetto alla soluzione esatta $x_e = [1, 1, \dots, 1]^T$.
@@ -81,7 +81,7 @@ conda env create -f environment.yml
 conda activate mcs-sparse
 
 # Avvio script
-python choleski.py
+python cholesky.py
 ```
 
 **Linux:**
@@ -99,6 +99,6 @@ conda init
 conda activate mcs-sparse
 
 # Avvio script
-python choleski.py
+python cholesky.py
 ```
 
