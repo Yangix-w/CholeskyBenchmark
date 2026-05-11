@@ -117,11 +117,16 @@ if __name__ == '__main__':
 
     matrix_ordered = sorted(matrix_files, key=lambda x: shapes[x][0])
 
+    ROOT_DIR = os.path.dirname(BASE_DIR)
+    RESULTS_DIR = os.path.join(ROOT_DIR, 'results')
+    if not os.path.exists(RESULTS_DIR):
+        os.makedirs(RESULTS_DIR)
+
     os_name = platform.system()
     if os_name == 'Windows':
-        csv_file = os.path.join(BASE_DIR, 'results_python_windows.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'results_python_windows.csv')
     else:
-        csv_file = os.path.join(BASE_DIR, 'results_python_linux.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'results_python_linux.csv')
 
     with open(csv_file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
