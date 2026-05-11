@@ -57,7 +57,7 @@ Softeware usati:
 ```bash
 chmod +x monitor_memory.sh
 ```
-Commando da lanciare dal terminale prima di avviare MATLAB su Linux, in modo da dare i permessi al profiler per misurare la memoria.
+Comando da lanciare da terminale prima di avviare MATLAB su Linux, in modo da dare i permessi al profiler per misurare la memoria.
 
 ## Installazione e attivazione della libreria `Scikit-Sparse` per Python
 ### Setup con Conda (Windows + Linux)
