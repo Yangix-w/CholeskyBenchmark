@@ -74,15 +74,25 @@ for i = 1:num_matrici
     % Breve pausa per assicurarsi che lo script in background sia partito
     %pause(0.5);
 
-    % Aspetta che il file di log venga creato (massimo 5 secondi di timeout)
-    timeout = 5;
+    % Aspetta che il file di log venga creato e che contenga dei dati (massimo 15 sec)
+    timeout = 15;
     t_wait = tic;
-    while ~isfile(log_file) && toc(t_wait) < timeout
+    log_pronto = false;
+    
+    while toc(t_wait) < timeout
+        if isfile(log_file)
+            % Se il file esiste, controlla che non sia vuoto (bytes > 0)
+            info_file = dir(log_file);
+            if info_file.bytes > 0
+                log_pronto = true;
+                break; % Usciamo dal ciclo: PowerShell ha iniziato a scrivere!
+            end
+        end
         pause(0.1); % Controlla ogni decimo di secondo
     end
     
-    if ~isfile(log_file)
-        warning('Timeout: lo script esterno non ha creato il log in tempo.');
+    if ~log_pronto
+        warning('Timeout: lo script esterno è troppo lento o non si è avviato.');
     end
 
     % --- ESECUZIONE DELLA RISOLUZIONE E MISURAZIONE TEMPO ---
@@ -96,7 +106,7 @@ for i = 1:num_matrici
     fclose(fid);
     
     % Breve pausa per dare tempo allo script di accorgersi del flag e chiudersi
-    pause(0.5); 
+    pause(0.5);
     
     % --- CALCOLO INCREMENTO RAM ---
     if isfile(log_file)
@@ -105,7 +115,8 @@ for i = 1:num_matrici
             mem_start = mem_data(1);      % Memoria all'istante iniziale
             mem_peak = max(mem_data);     % Picco di memoria raggiunto
             % Incremento in Megabyte (MB)
-            memorie(i) = (mem_peak - mem_start) / 1024; 
+            %memorie(i) = (mem_peak - mem_start) / 1024; 
+            memorie(i) = mem_peak / 1024;
         else
             memorie(i) = 0;
             warning('Il file di log della memoria è vuoto per %s.', matrici_names{i});
