@@ -66,14 +66,14 @@ def solve_and_measure(mtx_file):
         print(" Errore: matrice NON simmetrica")
         results['error'] = 'non simmetrica'
         return results
-
+    
     # STEP 3: Decomposizione di Choleski + risoluzione sistema A*x = b
     try:
         t0 = time.perf_counter()
         x, relative_error = solve_matrix(A, b, xe)
         time_ms = time.perf_counter() - t0
         
-        mem_history = memory_usage((solve_matrix, (A, b)), interval=0.1, timeout=None, include_children=True )
+        mem_history = memory_usage((solve_matrix, (A, b, xe)), interval=0.1, timeout=None, include_children=True )
 
         if mem_history:
             peak_memory = max(mem_history)
