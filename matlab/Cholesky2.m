@@ -48,13 +48,13 @@ for i = 1:num_matrici
 
     matlab_pid = feature('getpid');
     if ispc
-        % Su Windows la funzione nativa 'memory' è disponibile
-        mem_info = memory;
-        mem_iniziale = mem_info.MemUsedMATLAB / 1024^2; % Convertito in MB
+        cmd = sprintf('powershell -Command "(Get-Process -Id %d).WorkingSet64"', matlab_pid);
+        [~, mem_str] = system(cmd);
+        mem_iniziale = str2double(strtrim(mem_str)) / 1024^2;
     else
-        % Su Linux chiediamo al sistema operativo la Resident Set Size (RSS)
-        [~, mem_str] = system(sprintf('ps -p %d -o rss=', matlab_pid));
-        mem_iniziale = str2double(mem_str) / 1024; % Convertito da KB a MB
+        cmd = sprintf('ps -p %d -o rss=', matlab_pid);
+        [~, mem_str] = system(cmd);
+        mem_iniziale = str2double(strtrim(mem_str)) / 1024;
     end
 
     fprintf('Memoria iniziale: %.2f MB\n\n', mem_iniziale);
@@ -126,10 +126,10 @@ for i = 1:num_matrici
         mem_data = readmatrix(log_file); % Legge l'array dei campionamenti in KB
         if ~isempty(mem_data)
             %mem_start = mem_data(1);      % Memoria all'istante iniziale
-            mem_peak = max(mem_data);     % Picco di memoria raggiunto
-            fprintf('Memoria nel picco: %.2f KB\n\n', mem_peak);
+            mem_peak = max(mem_data) / 1024;     % Picco di memoria raggiunto
+            fprintf('Memoria nel picco: %.2f MB\n\n', mem_peak);
             % Incremento in Megabyte (MB)
-            memorie(i) = (mem_peak - mem_iniziale) / 1024; 
+            memorie(i) = mem_peak - mem_iniziale; 
             %memorie(i) = mem_peak / 1024;
         else
             memorie(i) = 0;
