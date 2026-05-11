@@ -46,6 +46,17 @@ for i = 1:num_matrici
         A = data.(campi{1}); 
     end
 
+    matlab_pid = feature('getpid');
+    if ispc
+        % Su Windows la funzione nativa 'memory' è disponibile
+        mem_info = memory;
+        mem_iniziale = mem_info.MemUsedMATLAB / 1024^2; % Convertito in MB
+    else
+        % Su Linux chiediamo al sistema operativo la Resident Set Size (RSS)
+        [~, mem_str] = system(sprintf('ps -p %d -o rss=', matlab_pid));
+        mem_iniziale = str2double(mem_str) / 1024; % Convertito da KB a MB
+    end
+
     N = size(A, 1);
     
     % --- SETUP MONITORAGGIO MEMORIA ---
@@ -112,11 +123,11 @@ for i = 1:num_matrici
     if isfile(log_file)
         mem_data = readmatrix(log_file); % Legge l'array dei campionamenti in KB
         if ~isempty(mem_data)
-            mem_start = mem_data(1);      % Memoria all'istante iniziale
+            %mem_start = mem_data(1);      % Memoria all'istante iniziale
             mem_peak = max(mem_data);     % Picco di memoria raggiunto
             % Incremento in Megabyte (MB)
-            %memorie(i) = (mem_peak - mem_start) / 1024; 
-            memorie(i) = mem_peak / 1024;
+            memorie(i) = (mem_peak - mem_iniziale) / 1024; 
+            %memorie(i) = mem_peak / 1024;
         else
             memorie(i) = 0;
             warning('Il file di log della memoria è vuoto per %s.', matrici_names{i});
