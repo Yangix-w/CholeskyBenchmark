@@ -11,7 +11,7 @@ FLAGFILE=$3
 while [ ! -f "$FLAGFILE" ]; do
     # Estrae la memoria RSS in KB per il PID e la salva nel log
     ps -p $PID -o rss= >> "$LOGFILE"
-    sleep 0.1 # Campiona ogni 100ms
+    sleep 0.05 # Campiona ogni 50ms
 done
 
 # Lancia chmod +x monitor_memory.sh da terminale prima di avviare MATLAB

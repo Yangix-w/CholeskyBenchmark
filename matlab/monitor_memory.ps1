@@ -16,5 +16,5 @@ while (-not (Test-Path -Path $FlagFile)) {
         $memKB = [math]::Round($process.WorkingSet64 / 1024)
         $memKB | Out-File -FilePath $LogFile -Append
     }
-    Start-Sleep -Milliseconds 100 # Campiona ogni 100ms
+    Start-Sleep -Milliseconds 50 # Campiona ogni 50ms
 }
