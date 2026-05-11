@@ -1,5 +1,5 @@
 # Analisi Comparativa del Metodo di Choleski per Matrici Sparse
-### Membri: Benbouzid Hicham, Shi Le Yang, Zen Elena
+### Membri: Hicham Benbouzid, Le Yang Shi, Elena Zen
 
 Questo progetto nasce dall'esigenza aziendale di valutare l'efficienza di diverse soluzioni software per la risoluzione di sistemi lineari di grandi dimensioni, caratterizzati da matrici sparse, simmetriche e definite positive. L'obiettivo principale è confrontare le prestazioni di **MATLAB** con una **libreria open source** a scelta su due diversi sistemi operativi: **Windows** e **Linux**.
 
@@ -30,13 +30,13 @@ Le matrici utilizzate per i test derivano da problemi reali (ingegneria, fluidod
 
 Le matrici sono scaricabili attraverso i script all'interno delle cartelle `matlab` e `python`.
 
-Installazione Windows:
+Download matrici Windows:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\script.ps1
 
 .\script.ps1
 ```
-Installazione Linux: 
+Download matrici Linux: 
 ```bash
 bash script.sh
 ```
@@ -48,11 +48,18 @@ bash script.sh
 I test sono stati eseguiti sulla stessa macchina fisica per garantire l'imparzialità dei dati.
 
 Softeware usati: 
-- **MATLab**
+- **MATLAB**
 - **Python** con la libreria [Scikit-Sparse](https://github.com/scikit-sparse/scikit-sparse) (`CHOLMOD`)
 - OS: **Windows** e **Linux**
 
-## Installazione e attivazione della libreria `Scikit-Sparse`
+## Avvio profiler MATLAB su Linux
+
+```bash
+chmod +x monitor_memory.sh
+```
+Commando da lanciare dal terminale prima di avviare MATLAB su Linux, in modo da dare i permessi al profiler per misurare la memoria.
+
+## Installazione e attivazione della libreria `Scikit-Sparse` per Python
 ### Setup con Conda (Windows + Linux)
 
 **Perché Conda?** Fornisce scikit-sparse precompilato con tutte le librerie C++ necessarie (CHOLMOD/SuiteSparse), evitando compilazioni complesse.
@@ -94,3 +101,4 @@ conda activate mcs-sparse
 # Avvio script
 python choleski.py
 ```
+
