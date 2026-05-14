@@ -42,7 +42,7 @@ def solve_matrix(A, b, xe):
     x = factor(b)
     relative_error = np.linalg.norm(x - xe) / np.linalg.norm(xe)
 
-    return x, relative_error
+    return relative_error
 
 def solve_and_measure(mtx_file):
     results = {'matrix': os.path.splitext(os.path.basename(mtx_file))[0]}
@@ -70,7 +70,7 @@ def solve_and_measure(mtx_file):
     # STEP 3: Decomposizione di Choleski + risoluzione sistema A*x = b
     try:
         t0 = time.perf_counter()
-        x, relative_error = solve_matrix(A, b, xe)
+        relative_error = solve_matrix(A, b, xe)
         time_ms = time.perf_counter() - t0
         
         mem_history = memory_usage((solve_matrix, (A, b, xe)), interval=0.1, timeout=None, include_children=True )
