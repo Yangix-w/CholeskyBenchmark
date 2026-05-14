@@ -91,6 +91,7 @@ def solve_and_measure(mtx_file):
 if __name__ == '__main__':
     matrix_files = [
         "./matrices/ex15.mtx",
+        "./matrices/ex15.mtx",
         "./matrices/cfd1.mtx",
         "./matrices/shallow_water1.mtx",
         "./matrices/cfd2.mtx",
@@ -124,9 +125,9 @@ if __name__ == '__main__':
 
     os_name = platform.system()
     if os_name == 'Windows':
-        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_windows.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'risultati_python_windows.csv')
     else:
-        csv_file = os.path.join(RESULTS_DIR, 'resultati_python_linux.csv')
+        csv_file = os.path.join(RESULTS_DIR, 'risultati_python_linux.csv')
 
     with open(csv_file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
