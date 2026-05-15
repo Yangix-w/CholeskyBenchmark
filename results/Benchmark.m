@@ -2,15 +2,11 @@
 
 clear; clc; close all;
 
-% --- 1. DEFINIZIONE PERCORSI E LETTURA CSV ---
-parentFolder = fileparts(pwd);
-folder = fullfile(parentFolder, 'results');
-
-% Assicurati che i file Python siano stati nominati in questo modo
-file_mw = fullfile(folder, 'risultati_matlab_windows.csv');
-file_ml = fullfile(folder, 'risultati_matlab_linux.csv');
-file_pw = fullfile(folder, 'risultati_python_windows.csv');
-file_pl = fullfile(folder, 'risultati_python_linux.csv');
+% --- 1. DEFINIZIONE LETTURA CSV ---
+file_mw = 'risultati_matlab_windows.csv';
+file_ml = 'risultati_matlab_linux.csv';
+file_pw = 'risultati_python_windows.csv';
+file_pl = 'risultati_python_linux.csv';
 
 % Controllo esistenza file
 if ~isfile(file_mw) || ~isfile(file_ml) || ~isfile(file_pw) || ~isfile(file_pl)
