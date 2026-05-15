@@ -45,10 +45,10 @@ err_pl = tab_pl.ErroreRelativo;
 mem_pl = tab_pl.Memoria_MB_;
 
 % --- 3. STILI GRAFICI ---
-st_mw = '-ob'; % MATLAB Windows: Linea blu, cerchi
-st_ml = '-sb'; % MATLAB Linux: Linea blu, quadrati
-st_pw = '-or'; % Python Windows: Linea rossa, cerchi
-st_pl = '-sr'; % Python Linux: Linea rossa, quadrati
+st_mw = '-sb'; % MATLAB Windows: Linea blu, quadrati
+st_ml = '-og'; % MATLAB Linux: Linea verde, cerchi
+st_pw = '-sr'; % Python Windows: Linea rossa, quadrtai
+st_pl = '-oy'; % Python Linux: Linea gialla, cerchi
 
 dim_figura = [100, 100, 1200, 400]; % Finestra larga per 3 grafici affiancati
 
@@ -60,19 +60,19 @@ sgtitle('Prestazioni MATLAB: Windows vs Linux', 'FontWeight', 'bold', 'FontSize'
 
 subplot(1, 3, 1);
 loglog(N_mw, t_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+loglog(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
 title('Tempo di Risoluzione'); xlabel('Dimensione N'); ylabel('Tempo (s)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
 subplot(1, 3, 2);
 loglog(N_mw, err_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+loglog(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
 title('Errore Relativo'); xlabel('Dimensione N'); ylabel('Errore'); grid on;
 legend('Windows', 'Linux', 'Location', 'best');
 
 subplot(1, 3, 3);
 loglog(N_mw, mem_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+loglog(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
@@ -85,19 +85,19 @@ sgtitle('Prestazioni Python: Windows vs Linux', 'FontWeight', 'bold', 'FontSize'
 
 subplot(1, 3, 1);
 loglog(N_pw, t_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-loglog(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Tempo di Risoluzione'); xlabel('Dimensione N'); ylabel('Tempo (s)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
 subplot(1, 3, 2);
 loglog(N_pw, err_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-loglog(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Errore Relativo'); xlabel('Dimensione N'); ylabel('Errore'); grid on;
 legend('Windows', 'Linux', 'Location', 'best');
 
 subplot(1, 3, 3);
 loglog(N_pw, mem_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-loglog(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
@@ -109,20 +109,20 @@ figure('Name', 'Linux: MATLAB vs Python', 'Position', dim_figura + [100, -100, 0
 sgtitle('Ambiente Linux: MATLAB vs Python', 'FontWeight', 'bold', 'FontSize', 14);
 
 subplot(1, 3, 1);
-loglog(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
+loglog(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Tempo di Risoluzione'); xlabel('Dimensione N'); ylabel('Tempo (s)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
 
 subplot(1, 3, 2);
-loglog(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
+loglog(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Errore Relativo'); xlabel('Dimensione N'); ylabel('Errore'); grid on;
 legend('MATLAB', 'Python', 'Location', 'best');
 
 subplot(1, 3, 3);
-loglog(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
-loglog(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+loglog(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
+loglog(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
 
