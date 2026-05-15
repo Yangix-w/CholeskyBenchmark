@@ -171,7 +171,7 @@ figure('Name', 'Prestazioni MATLAB: Cholesky su Matrici Sparse', 'Position', [10
 
 % Grafico 1: Tempo
 subplot(1, 3, 1);
-loglog(N_vals_sorted, tempi_sorted, '-o', 'LineWidth', 2, 'MarkerFaceColor', 'b');
+semilogy(N_vals_sorted, tempi_sorted, '-o', 'LineWidth', 2, 'MarkerFaceColor', 'b');
 title('Tempo di Risoluzione');
 xlabel('Dimensione matrice (N)');
 ylabel('Tempo (secondi)');
@@ -179,7 +179,7 @@ grid on;
 
 % Grafico 2: Errore Relativo
 subplot(1, 3, 2);
-loglog(N_vals_sorted, errori_sorted, '-s', 'LineWidth', 2, 'MarkerFaceColor', 'r', 'Color', 'r');
+semilogy(N_vals_sorted, errori_sorted, '-s', 'LineWidth', 2, 'MarkerFaceColor', 'r', 'Color', 'r');
 title('Errore Relativo');
 xlabel('Dimensione matrice (N)');
 ylabel('Errore relativo');
@@ -187,7 +187,7 @@ grid on;
 
 % Grafico 3: Memoria
 subplot(1, 3, 3);
-loglog(N_vals_sorted, memorie_sorted, '-^', 'LineWidth', 2, 'MarkerFaceColor', 'g', 'Color', 'g');
+semilogy(N_vals_sorted, memorie_sorted, '-^', 'LineWidth', 2, 'MarkerFaceColor', 'g', 'Color', 'g');
 title('Incremento di Memoria RAM');
 xlabel('Dimensione matrice (N)');
 ylabel('Memoria (MB)');
