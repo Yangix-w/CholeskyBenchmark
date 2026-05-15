@@ -79,6 +79,8 @@ xlabel('Dimensione matrice (N)');
 ylabel('Memoria (MB)');
 grid on;
 
+exportgraphics(gcf, 'grafici_matlab_windows.png', 'Resolution', 300);
+
 % =========================================================================
 %% FIGURA 2: PYTHON - Windows
 % =========================================================================
@@ -105,6 +107,8 @@ title('Incremento di Memoria RAM');
 xlabel('Dimensione matrice (N)');
 ylabel('Memoria (MB)');
 grid on;
+
+exportgraphics(gcf, 'grafici_python_windows.png', 'Resolution', 300);
 
 % =========================================================================
 %% FIGURA 3: MATLAB - Linux
@@ -133,6 +137,8 @@ xlabel('Dimensione matrice (N)');
 ylabel('Memoria (MB)');
 grid on;
 
+exportgraphics(gcf, 'grafici_matlab_linux.png', 'Resolution', 300);
+
 % =========================================================================
 %% FIGURA 4: PYTHON - Linux
 % =========================================================================
@@ -160,6 +166,8 @@ xlabel('Dimensione matrice (N)');
 ylabel('Memoria (MB)');
 grid on;
 
+exportgraphics(gcf, 'grafici_python_linux.png', 'Resolution', 300);
+
 % =========================================================================
 %% FIGURA 5: MATLAB - Windows vs Linux
 % =========================================================================
@@ -184,6 +192,7 @@ semilogy(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
+exportgraphics(gcf, 'grafici_matlab.png', 'Resolution', 300);
 
 % =========================================================================
 %% FIGURA 6: PYTHON - Windows vs Linux
@@ -209,6 +218,7 @@ semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
 
+exportgraphics(gcf, 'grafici_python.png', 'Resolution', 300);
 
 % =========================================================================
 %% FIGURA 7: LINUX - MATLAB vs Python
@@ -234,6 +244,7 @@ semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
 
+exportgraphics(gcf, 'grafici_linux.png', 'Resolution', 300);
 
 % =========================================================================
 %% FIGURA 8: WINDOWS - MATLAB vs Python
@@ -258,3 +269,5 @@ semilogy(N_mw, mem_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b'); hold on;
 semilogy(N_pw, mem_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r');
 title('Incremento Memoria RAM'); xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
+
+exportgraphics(gcf, 'grafici_windows.png', 'Resolution', 300);
