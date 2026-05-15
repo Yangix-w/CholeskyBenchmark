@@ -53,7 +53,115 @@ st_pl = '-oy'; % Python Linux: Linea gialla, cerchi
 dim_figura = [100, 100, 1200, 400]; % Finestra larga per 3 grafici affiancati
 
 % =========================================================================
-%% FIGURA 1: MATLAB - Windows vs Linux
+%% FIGURA 1: MATLAB - Windows
+% =========================================================================
+figure('Name', 'MATLAB: Windows', 'Position', [100, 100, 1200, 400]);
+sgtitle('Prestazioni MATLAB: Windows', 'FontWeight', 'bold', 'FontSize', 14);
+
+subplot(1, 3, 1);
+loglog(N_mw, t_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+title('Tempo di Risoluzione');
+xlabel('Dimensione matrice (N)');
+ylabel('Tempo (secondi)');
+grid on;
+
+subplot(1, 3, 2);
+loglog(N_mw, err_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+title('Errore Relativo');
+xlabel('Dimensione matrice (N)');
+ylabel('Errore relativo');
+grid on;
+
+subplot(1, 3, 3);
+loglog(N_mw, mem_mw, st_mw, 'LineWidth', 2, 'MarkerFaceColor', 'b');
+title('Incremento di Memoria RAM');
+xlabel('Dimensione matrice (N)');
+ylabel('Memoria (MB)');
+grid on;
+
+% =========================================================================
+%% FIGURA 2: PYTHON - Windows
+% =========================================================================
+figure('Name', 'Python: Windows', 'Position', [100, 100, 1200, 400]);
+sgtitle('Prestazioni Python: Windows', 'FontWeight', 'bold', 'FontSize', 14);
+
+subplot(1, 3, 1);
+loglog(N_pw, t_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+title('Tempo di Risoluzione');
+xlabel('Dimensione matrice (N)');
+ylabel('Tempo (secondi)');
+grid on;
+
+subplot(1, 3, 2);
+loglog(N_pw, err_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+title('Errore Relativo');
+xlabel('Dimensione matrice (N)');
+ylabel('Errore relativo');
+grid on;
+
+subplot(1, 3, 3);
+loglog(N_pw, mem_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r');
+title('Incremento di Memoria RAM');
+xlabel('Dimensione matrice (N)');
+ylabel('Memoria (MB)');
+grid on;
+
+% =========================================================================
+%% FIGURA 3: MATLAB - Linux
+% =========================================================================
+figure('Name', 'MATLAB: Linux', 'Position', [100, 100, 1200, 400]);
+sgtitle('Prestazioni MATLAB: Linux', 'FontWeight', 'bold', 'FontSize', 14);
+
+subplot(1, 3, 1);
+loglog(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
+title('Tempo di Risoluzione');
+xlabel('Dimensione matrice (N)');
+ylabel('Tempo (secondi)');
+grid on;
+
+subplot(1, 3, 2);
+loglog(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
+title('Errore Relativo');
+xlabel('Dimensione matrice (N)');
+ylabel('Errore relativo');
+grid on;
+
+subplot(1, 3, 3);
+loglog(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g');
+title('Incremento di Memoria RAM');
+xlabel('Dimensione matrice (N)');
+ylabel('Memoria (MB)');
+grid on;
+
+% =========================================================================
+%% FIGURA 4: PYTHON - Linux
+% =========================================================================
+figure('Name', 'Python: Linux', 'Position', [100, 100, 1200, 400]);
+sgtitle('Prestazioni Python: Linux', 'FontWeight', 'bold', 'FontSize', 14);
+
+subplot(1, 3, 1);
+loglog(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+title('Tempo di Risoluzione');
+xlabel('Dimensione matrice (N)');
+ylabel('Tempo (secondi)');
+grid on;
+
+subplot(1, 3, 2);
+loglog(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+title('Errore Relativo');
+xlabel('Dimensione matrice (N)');
+ylabel('Errore relativo');
+grid on;
+
+subplot(1, 3, 3);
+loglog(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+title('Incremento di Memoria RAM');
+xlabel('Dimensione matrice (N)');
+ylabel('Memoria (MB)');
+grid on;
+
+% =========================================================================
+%% FIGURA 5: MATLAB - Windows vs Linux
 % =========================================================================
 figure('Name', 'MATLAB: Windows vs Linux', 'Position', dim_figura);
 sgtitle('Prestazioni MATLAB: Windows vs Linux', 'FontWeight', 'bold', 'FontSize', 14);
@@ -78,7 +186,7 @@ legend('Windows', 'Linux', 'Location', 'northwest');
 
 
 % =========================================================================
-%% FIGURA 2: PYTHON - Windows vs Linux
+%% FIGURA 6: PYTHON - Windows vs Linux
 % =========================================================================
 figure('Name', 'Python: Windows vs Linux', 'Position', dim_figura + [50, -50, 0, 0]);
 sgtitle('Prestazioni Python: Windows vs Linux', 'FontWeight', 'bold', 'FontSize', 14);
@@ -103,7 +211,7 @@ legend('Windows', 'Linux', 'Location', 'northwest');
 
 
 % =========================================================================
-%% FIGURA 3: LINUX - MATLAB vs Python
+%% FIGURA 7: LINUX - MATLAB vs Python
 % =========================================================================
 figure('Name', 'Linux: MATLAB vs Python', 'Position', dim_figura + [100, -100, 0, 0]);
 sgtitle('Ambiente Linux: MATLAB vs Python', 'FontWeight', 'bold', 'FontSize', 14);
@@ -128,7 +236,7 @@ legend('MATLAB', 'Python', 'Location', 'northwest');
 
 
 % =========================================================================
-%% FIGURA 4: WINDOWS - MATLAB vs Python
+%% FIGURA 8: WINDOWS - MATLAB vs Python
 % =========================================================================
 figure('Name', 'Windows: MATLAB vs Python', 'Position', dim_figura + [150, -150, 0, 0]);
 sgtitle('Ambiente Windows: MATLAB vs Python', 'FontWeight', 'bold', 'FontSize', 14);
