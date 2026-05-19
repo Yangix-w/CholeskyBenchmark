@@ -139,7 +139,7 @@ for i = 1:num_matrici
     fprintf("N: %-8d | ", N_vals(i));
     
     % Stampa dei risultati intermedi
-    fprintf('Tempo: %8.4f s | Errore: %8.2e | Incremento Memoria: %8.4f MB\n', ...
+    fprintf('Tempo: %8.4f s | Errore: %8.4e | Incremento Memoria: %8.4f MB\n', ...
             tempi(i), errori(i), memorie(i));
             
     % Pulizia per liberare la RAM prima del ciclo successivo
