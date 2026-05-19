@@ -48,7 +48,7 @@ mem_pl = tab_pl.Memoria_MB_;
 st_mw = '-sb'; % MATLAB Windows: Linea blu, quadrati
 st_ml = '-og'; % MATLAB Linux: Linea verde, cerchi
 st_pw = '-sr'; % Python Windows: Linea rossa, quadrati
-st_pl = '-oy'; % Python Linux: Linea gialla, cerchi
+st_pl = '-om'; % Python Linux: Linea gialla, cerchi
 
 dim_figura = [100, 100, 800, 600]; % Finestra larga singola
 
@@ -119,19 +119,19 @@ exportgraphics(gcf, 'matlab_linux_memoria.png', 'Resolution', 300);
 %% SCENARIO 4: PYTHON - Linux
 % =========================================================================
 figure('Name', 'Python Linux - Tempo', 'Position', dim_figura);
-semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Linux): Tempo di Risoluzione', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione matrice (N)'); ylabel('Tempo (secondi)'); grid on;
 exportgraphics(gcf, 'python_linux_tempo.png', 'Resolution', 300);
 
 figure('Name', 'Python Linux - Errore', 'Position', dim_figura);
-semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Linux): Errore Relativo', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione matrice (N)'); ylabel('Errore relativo'); grid on;
 exportgraphics(gcf, 'python_linux_errore.png', 'Resolution', 300);
 
 figure('Name', 'Python Linux - Memoria', 'Position', dim_figura);
-semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Linux): Incremento di Memoria RAM', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione matrice (N)'); ylabel('Memoria (MB)'); grid on;
 exportgraphics(gcf, 'python_linux_memoria.png', 'Resolution', 300);
@@ -168,7 +168,7 @@ exportgraphics(gcf, 'confronto_matlab_win_lin_memoria.png', 'Resolution', 300);
 % =========================================================================
 figure('Name', 'Python Win vs Lin - Tempo', 'Position', dim_figura);
 semilogy(N_pw, t_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Windows vs Linux): Tempo di Risoluzione', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Tempo (s)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
@@ -176,7 +176,7 @@ exportgraphics(gcf, 'confronto_python_win_lin_tempo.png', 'Resolution', 300);
 
 figure('Name', 'Python Win vs Lin - Errore', 'Position', dim_figura);
 semilogy(N_pw, err_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Windows vs Linux): Errore Relativo', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Errore'); grid on;
 legend('Windows', 'Linux', 'Location', 'best');
@@ -184,7 +184,7 @@ exportgraphics(gcf, 'confronto_python_win_lin_errore.png', 'Resolution', 300);
 
 figure('Name', 'Python Win vs Lin - Memoria', 'Position', dim_figura);
 semilogy(N_pw, mem_pw, st_pw, 'LineWidth', 2, 'MarkerFaceColor', 'r'); hold on;
-semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Python (Windows vs Linux): Incremento Memoria RAM', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('Windows', 'Linux', 'Location', 'northwest');
@@ -195,7 +195,7 @@ exportgraphics(gcf, 'confronto_python_win_lin_memoria.png', 'Resolution', 300);
 % =========================================================================
 figure('Name', 'Linux MATLAB vs Python - Tempo', 'Position', dim_figura);
 semilogy(N_ml, t_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
-semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, t_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Ambiente Linux (MATLAB vs Python): Tempo di Risoluzione', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Tempo (s)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
@@ -203,7 +203,7 @@ exportgraphics(gcf, 'confronto_linux_mat_py_tempo.png', 'Resolution', 300);
 
 figure('Name', 'Linux MATLAB vs Python - Errore', 'Position', dim_figura);
 semilogy(N_ml, err_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
-semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, err_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Ambiente Linux (MATLAB vs Python): Errore Relativo', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Errore'); grid on;
 legend('MATLAB', 'Python', 'Location', 'best');
@@ -211,7 +211,7 @@ exportgraphics(gcf, 'confronto_linux_mat_py_errore.png', 'Resolution', 300);
 
 figure('Name', 'Linux MATLAB vs Python - Memoria', 'Position', dim_figura);
 semilogy(N_ml, mem_ml, st_ml, 'LineWidth', 2, 'MarkerFaceColor', 'g'); hold on;
-semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'y');
+semilogy(N_pl, mem_pl, st_pl, 'LineWidth', 2, 'MarkerFaceColor', 'm');
 title('Ambiente Linux (MATLAB vs Python): Incremento Memoria RAM', 'FontWeight', 'bold', 'FontSize', 14);
 xlabel('Dimensione N'); ylabel('Memoria (MB)'); grid on;
 legend('MATLAB', 'Python', 'Location', 'northwest');
