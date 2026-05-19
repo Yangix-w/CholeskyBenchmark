@@ -79,9 +79,9 @@ def solve_and_measure(mtx_file):
             peak_memory = max(mem_history)
             mem_used = peak_memory - mem_history[0]
 
-            results['peak_memory'] = f"{mem_used:.6f}"
-            results['time'] = f"{time_ms:.6f}"
-            results['relative_error'] = f"{relative_error:.2e}"
+            results['peak_memory'] = f"{mem_used:.4f}"
+            results['time'] = f"{time_ms:.4f}"
+            results['relative_error'] = f"{relative_error:.4e}"
             
             return results
         
