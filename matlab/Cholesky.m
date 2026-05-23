@@ -108,8 +108,10 @@ for i = 1:num_matrici
 
     % --- ESECUZIONE DELLA RISOLUZIONE E MISURAZIONE TEMPO ---
     tic;
-    errori(i) = solve(A, N);
-    tempi(i) = toc;
+    errore = solve(A, N);
+    t = toc;
+    tempi(i) = round(t,4);
+    errori(i) = round(errore,4,'significant');
 
     % --- FINE MONITORAGGIO MEMORIA ---
     % Crea il file "flag" per dire allo script in background di fermarsi
@@ -125,7 +127,8 @@ for i = 1:num_matrici
         if ~isempty(mem_data)
             mem_peak = max(mem_data) / 1024; % Picco di memoria raggiunto
             % Incremento in Megabyte (MB)
-            memorie(i) = mem_peak - mem_iniziale; 
+            memoria = mem_peak - mem_iniziale; 
+            memorie(i) = round(memoria,4);
         else
             memorie(i) = 0;
             warning('Il file di log della memoria è vuoto per %s.', matrici_names{i});
