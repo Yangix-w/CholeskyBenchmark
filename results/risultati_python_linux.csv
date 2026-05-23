@@ -1,4 +1,4 @@
-Matrice,Dimensione (N),Tempo (s),Errore Relativo,Memoria (MB)
+Matrice,Dimensione (N),Tempo (s),Errore relativo,Memoria (MB)
 ex15,6867,0.0125,5.8895e-07,175.3477
 cfd1,70656,1.3751,8.0466e-14,498.2188
 shallow_water1,81920,0.2336,2.0162e-16,309.8750

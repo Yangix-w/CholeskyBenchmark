@@ -131,7 +131,7 @@ if __name__ == '__main__':
 
     with open(csv_file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['Matrice', 'Dimensione (N)', 'Tempo (s)', 'Errore Relativo', 'Memoria (MB)'])
+        writer.writerow(['Matrice', 'Dimensione (N)', 'Tempo (s)', 'Errore relativo', 'Memoria (MB)'])
 
     ready_to_plot = False
 
